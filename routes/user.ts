@@ -2,7 +2,7 @@ import * as express from 'express';
 import { UserProvider } from '../providers';
 import * as bcryptjs from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { secret } from '..';
+import { jwtSecret } from '..';
 import * as passport from 'passport';
 
 export const userRouter = express.Router();
@@ -27,7 +27,7 @@ userRouter.post('/signin', async (req, res) => {
     const isMatch = await bcryptjs.compare(password, user.password);
 
     if (isMatch) {
-      const jwtTok = jwt.sign({ userId: user._id }, secret);
+      const jwtTok = jwt.sign({ userId: user._id }, jwtSecret);
       res.status(200).json({ message: 'Login successful', token: jwtTok });
     } else {
       res.status(401).json({ message: 'Invalid username or password' });

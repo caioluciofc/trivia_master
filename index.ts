@@ -14,10 +14,10 @@ createSocket(server);
 interface JwtPayloadUsername extends jwt.JwtPayload {
   username: string;
 }
-export const secret = 'eF8DxK2vTl*yR9z!pGq7mW#t%Ry^u&bB';
+export const jwtSecret = 'eF8DxK2vTl*yR9z!pGq7mW#t%Ry^u&bB';
 passport.use(
   new BearerStrategy((token, done) => {
-    jwt.verify(token, secret, (err, decoded: JwtPayloadUsername) => {
+    jwt.verify(token, jwtSecret, (err, decoded: JwtPayloadUsername) => {
       if (err) {
         done(null, false);
         return;

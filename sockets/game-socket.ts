@@ -8,7 +8,7 @@ import {
   type ServerToClientEvents,
   type SocketData,
 } from './interfaces';
-import { secret } from '..';
+import { jwtSecret } from '..';
 import * as jwt from 'jsonwebtoken';
 
 export function createSocket(server: HttpServer) {
@@ -21,7 +21,7 @@ export function createSocket(server: HttpServer) {
   io.use((socket: Socket, next) => {
     const token = socket.handshake.query.token as string;
 
-    jwt.verify(token, secret, (err, decoded) => {
+    jwt.verify(token, jwtSecret, (err, decoded) => {
       if (err) {
         next(new Error('Authentication failed'));
         return;
