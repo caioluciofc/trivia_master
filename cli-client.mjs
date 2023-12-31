@@ -160,10 +160,14 @@ async function startGame(roomId, username, socket) {
       }
       console.log(`\n\n ${data.message} \n\n`);
       const winFrames = ['You Win!', 'Congratulations!', 'Well Done!'];
+      const drawFrames = ['DRAW', 'WARD', 'dRaW'];
       const loseFrames = ['You Lose!', 'Sad :(', 'Game Over'];
+      
 
       if (data.result === username) {
         await animateAsciiArt(winFrames);
+      } else if (data.result === 'DRAW') {
+        await animateAsciiArt(drawFrames);
       } else {
         await animateAsciiArt(loseFrames);
       }
