@@ -3,7 +3,9 @@ import inquirer from 'inquirer';
 import figlet from 'figlet';
 import axios from 'axios';
 
-const url = 'http://localhost:3000';
+const url = 'https://trivia-master.fly.dev';
+// const url = 'http://localhost:3000'
+
 let authToken;
 let username;
 
@@ -23,30 +25,35 @@ async function authenticate() {
     process.exit(0);
   }
 
-  const usernameAndPassword = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'username',
-      message: 'Enter your username:',
-      validate: (value) => {
-        if (value.length >= 6) {
-          return true;
-        }
-        return 'Username must be at least 6 characters long.';
-      },
-    },
-    {
-      type: 'password',
-      name: 'password',
-      message: 'Enter your password:',
-      validate: (value) => {
-        if (value.length >= 6) {
-          return true;
-        }
-        return 'Password must be at least 6 characters long.';
-      },
-    },
-  ]);
+  const usernameAndPassword = {
+    username : 'Matthew',
+    password : 'matthew'
+  }
+
+  // const usernameAndPassword = await inquirer.prompt([
+  //   {
+  //     type: 'input',
+  //     name: 'username',
+  //     message: 'Enter your username:',
+  //     validate: (value) => {
+  //       if (value.length >= 6) {
+  //         return true;
+  //       }
+  //       return 'Username must be at least 6 characters long.';
+  //     },
+  //   },
+  //   {
+  //     type: 'password',
+  //     name: 'password',
+  //     message: 'Enter your password:',
+  //     validate: (value) => {
+  //       if (value.length >= 6) {
+  //         return true;
+  //       }
+  //       return 'Password must be at least 6 characters long.';
+  //     },
+  //   },
+  // ]);
   if (authChoice.action === 'Login') {
     try {
       const response = await axios.post(url + '/user/signin', usernameAndPassword, {

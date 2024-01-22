@@ -6,6 +6,7 @@ import { createSocket } from './sockets/game-socket';
 import * as passport from 'passport';
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
 import * as jwt from 'jsonwebtoken';
+import * as cors from 'cors';
 
 export const app: express.Application = express();
 const server = createServer(app);
@@ -43,6 +44,7 @@ mongoose
 
 app.use(express.json());
 app.use(express.static('public'));
+app.use(cors({credentials: true, origin: true, }))
 app.use('/user', userRouter);
 app.use('/question', questionRouter);
 app.use('/games', matchRouter);
