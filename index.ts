@@ -15,7 +15,7 @@ createSocket(server);
 interface JwtPayloadUsername extends jwt.JwtPayload {
   username: string;
 }
-export const jwtSecret = 'eF8DxK2vTl*yR9z!pGq7mW#t%Ry^u&bB';
+export const jwtSecret = process.env.JWTSECRET;
 passport.use(
   new BearerStrategy((token, done) => {
     jwt.verify(token, jwtSecret, (err, decoded: JwtPayloadUsername) => {
@@ -30,9 +30,10 @@ passport.use(
 );
 
 // MONGODB Server Connection
-// TODO : Get password from env file
+const mongoUser = process.env.MONGOUSER;
+const mongoPass = process.env.MONGOPASS;
 const uri =
-  'mongodb+srv://caioluciofc:Lie7APJINXGGNysU@triviagame.grizrzt.mongodb.net/?retryWrites=true&w=majority';
+  `mongodb+srv://${mongoUser}:${mongoPass}@triviagame.grizrzt.mongodb.net/?retryWrites=true&w=majority`;
 mongoose
   .connect(uri)
   .then(() => {
