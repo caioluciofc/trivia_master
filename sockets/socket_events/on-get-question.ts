@@ -18,8 +18,13 @@ interface Props {
 export async function onGetQuestion({ socket, gameController, _data, callback }: Props) {
   const rooms = socket.rooms;
   const roomsArr = Array.from(rooms);
-  const actualQuestion = gameController.getCurrentQuestion(roomsArr[1]);
+  const roomId = roomsArr[1];
+  const players = gameController.getRoomPlayers(roomId);
+  const actualQuestion = gameController.getCurrentQuestion(roomId);
+  const score = gameController.getScore(roomId);
   callback({
     question: actualQuestion,
+    players,
+    score
   });
 }

@@ -22,6 +22,7 @@ export async function onPlayerAnswer({ socket, gameController, data, callback }:
   const roomId = roomsArr[1];
   const roundStatus = gameController.answerQuestion(roomId, data.username, data.answer);
   const result = gameController.checkResult(roomId);
+  const score = gameController.getScore(roomId);
   // This is here to avoid the next-round being emmited before the client is waiting for it
   function emitNextRound() {
     socket.to(roomId).emit('next-round', { roundStatus });
@@ -29,6 +30,7 @@ export async function onPlayerAnswer({ socket, gameController, data, callback }:
   callback({
     roundStatus,
     result,
+    score,
   });
   setTimeout(emitNextRound, 150);
 }

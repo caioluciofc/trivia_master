@@ -82,6 +82,11 @@ export class GameController {
     return 'ERROR';
   }
 
+  getScore(roomId : string) {
+    const room = this.getRoom(roomId);
+    return room.getScore()
+  }
+
   async waitAndDeleteGame(roomId: string) {
     const room = this.getRoom(roomId);
     if (!room?.markedToDelete) {

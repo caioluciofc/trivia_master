@@ -46,6 +46,14 @@ export class Game {
     return this.players.get(username);
   }
 
+  getScore() {
+    const playerScores = {}
+    for (const [username, player] of this.players.entries()) {
+      playerScores[username] = player.score
+    }
+    return playerScores
+  }
+
   startGame() {
     this.started = true;
     this.round = 1;
