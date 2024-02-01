@@ -16,9 +16,15 @@ smallNoteRouter.get('/get_note/:note_id', async (req, res) => {
 });
 
 smallNoteRouter.post('/update_note', async (req, res) => {
-    const note = await SmallNoteProvider.updateNote(
-        req.body.note_id,
-        req.body.text,
-    );
-    res.send(note);
+    const noteFound = await SmallNoteProvider.getNote(Number(req.body.note_id));
+    if (noteFound) {
+        await SmallNoteProvider.updateNote(
+            req.body.note_id,
+            req.body.text,
+        );
+        res.send('note updated');
+        } else {
+        await SmallNoteProvider.create(req.body.note_id, req.body.text);
+        res.send('note created');
+    }
 });
