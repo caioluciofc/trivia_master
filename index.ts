@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { createServer } from 'http';
 import * as mongoose from 'mongoose';
-import { userRouter, questionRouter, matchRouter } from './routes';
+import { userRouter, questionRouter, matchRouter, smallNoteRouter } from './routes';
 import { createSocket } from './sockets/game-socket';
 import * as passport from 'passport';
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
@@ -49,6 +49,7 @@ app.use(cors({credentials: true, origin: true, }))
 app.use('/user', userRouter);
 app.use('/question', questionRouter);
 app.use('/games', matchRouter);
+app.use('/notes', smallNoteRouter);
 
 app.get('/', async (req, res) => {
   res.send('GAMEON');
